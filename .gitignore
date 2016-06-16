@@ -1,8 +1,14 @@
+.idea/
+out/
+*.iml
+*.iws
+proguard-project.txt
+
 # Built application files
 *.apk
 *.ap_
 
-# Files for the ART/Dalvik VM
+# Files for the Dalvik VM
 *.dex
 
 # Java class files
@@ -11,7 +17,6 @@
 # Generated files
 bin/
 gen/
-out/
 
 # Gradle files
 .gradle/
@@ -32,9 +37,14 @@ proguard/
 # Android Studio captures folder
 captures/
 
-# Intellij
-*.iml
-.idea/workspace.xml
+# Maven
+log/
+target/
 
-# Keystore files
-*.jks
+# Eclipse
+.classpath
+.project
+.settings/
+
+# Mac
+.DS_Store
