@@ -57,7 +57,7 @@ public class FlickrFetchr {
                     .appendQueryParameter("key", API_KEY)
                     .appendQueryParameter("q", "cat")
                     .appendQueryParameter("image_type", "photo")
-                    .appendQueryParameter("per_page", "100")
+                    .appendQueryParameter("per_page", "30")
                     .appendQueryParameter("pretty", "true")
                     .build().toString();
             String jsonString = getUrl(url);
