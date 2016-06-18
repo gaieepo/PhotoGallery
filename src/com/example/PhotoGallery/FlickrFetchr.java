@@ -2,12 +2,16 @@ package com.example.PhotoGallery;
 
 import android.net.Uri;
 import android.util.Log;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 
 /**
  * Created by gaieepo on 17/6/2016.
@@ -46,19 +50,41 @@ public class FlickrFetchr {
         return new String(getUrlBytes(urlSpec));
     }
 
-    public void fetchItems() {
+    public ArrayList<GalleryItem> fetchItems() {
+        ArrayList<GalleryItem> items = new ArrayList<>();
         try {
             String url = Uri.parse(ENDPOINT).buildUpon()
                     .appendQueryParameter("key", API_KEY)
-                    .appendQueryParameter("q", "yellow+flowers")
+                    .appendQueryParameter("q", "cat")
                     .appendQueryParameter("image_type", "photo")
+                    .appendQueryParameter("per_page", "100")
                     .appendQueryParameter("pretty", "true")
                     .build().toString();
-            Log.d(TAG, url);
-            String xmlString = getUrl(url);
-            Log.i(TAG, "Received xml: " + xmlString);
+            String jsonString = getUrl(url);
+            Log.i(TAG, "Received json: " + jsonString);
+            parseItems(items, jsonString);
         } catch (IOException ioe) {
             Log.e(TAG, "Failed to fetch items", ioe);
         }
+        return items;
+    }
+
+    private void parseItems(ArrayList<GalleryItem> items, String jsonString) {
+        try {
+            JSONObject jsonObject = new JSONObject(jsonString);
+            JSONArray jsonArray = jsonObject.getJSONArray("hits");
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject galleryObject = jsonArray.getJSONObject(i);
+                String id = galleryObject.getString("id");
+                String url = galleryObject.getString("webformatURL");
+                GalleryItem item = new GalleryItem();
+                item.setId(id);
+                item.setUrl(url);
+                items.add(item);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
     }
 }
