@@ -19,6 +19,8 @@ import java.util.ArrayList;
 public class FlickrFetchr {
     public static final String TAG = "FlickrFetchr";
 
+    public static final String PREF_SEARCH_QUERY = "searchQuery";
+
     private static final String ENDPOINT = "https://pixabay.com/api/";
     private static final String API_KEY = "2773707-6b9eab3a9f01c7d3e40fa9a59";
 
@@ -50,16 +52,9 @@ public class FlickrFetchr {
         return new String(getUrlBytes(urlSpec));
     }
 
-    public ArrayList<GalleryItem> fetchItems() {
+    public ArrayList<GalleryItem> downloadGalleryItems(String url) {
         ArrayList<GalleryItem> items = new ArrayList<>();
         try {
-            String url = Uri.parse(ENDPOINT).buildUpon()
-                    .appendQueryParameter("key", API_KEY)
-                    .appendQueryParameter("q", "cat")
-                    .appendQueryParameter("image_type", "photo")
-                    .appendQueryParameter("per_page", "30")
-                    .appendQueryParameter("pretty", "true")
-                    .build().toString();
             String jsonString = getUrl(url);
             Log.i(TAG, "Received json: " + jsonString);
             parseItems(items, jsonString);
@@ -69,6 +64,34 @@ public class FlickrFetchr {
         return items;
     }
 
+    public ArrayList<GalleryItem> fetchItems() {
+        String url = Uri.parse(ENDPOINT).buildUpon()
+                .appendQueryParameter("key", API_KEY)
+                .appendQueryParameter("q", "cat")
+                .appendQueryParameter("image_type", "photo")
+                .appendQueryParameter("per_page", "30")
+                .appendQueryParameter("pretty", "true")
+                .build().toString();
+        return downloadGalleryItems(url);
+    }
+
+    public ArrayList<GalleryItem> search(String query) {
+        String formattedQuery = formatQuery(query);
+        String url = Uri.parse(ENDPOINT).buildUpon()
+                .appendQueryParameter("key", API_KEY)
+                .appendQueryParameter("q", formattedQuery)
+                .appendQueryParameter("image_type", "photo")
+                .appendQueryParameter("per_page", "30")
+                .appendQueryParameter("pretty", "true")
+                .build().toString();
+        Log.i(TAG, url);
+        return downloadGalleryItems(url);
+    }
+
+    private String formatQuery(String query) {
+        return query.replace(' ', '+');
+    }
+
     private void parseItems(ArrayList<GalleryItem> items, String jsonString) {
         try {
             JSONObject jsonObject = new JSONObject(jsonString);
@@ -76,7 +99,7 @@ public class FlickrFetchr {
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject galleryObject = jsonArray.getJSONObject(i);
                 String id = galleryObject.getString("id");
-                String url = galleryObject.getString("webformatURL");
+                String url = galleryObject.getString("previewURL");
                 GalleryItem item = new GalleryItem();
                 item.setId(id);
                 item.setUrl(url);
