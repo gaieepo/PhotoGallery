@@ -26,7 +26,7 @@ import java.util.ArrayList;
 /**
  * Created by gaieepo on 16/6/2016.
  */
-public class PhotoGalleryFragment extends Fragment {
+public class PhotoGalleryFragment extends VisibleFragment {
     private static final String TAG = "PhotoGalleryFragment";
 
     GridView mGridView;
@@ -187,7 +187,7 @@ public class PhotoGalleryFragment extends Fragment {
             ImageView imageView = (ImageView) convertView.findViewById(R.id.gallery_item_imageView);
             imageView.setImageResource(R.drawable.evil_smile);
             GalleryItem item = getItem(position);
-            mThumbnailThread.queueThumbnail(imageView, item.getUrl());
+            mThumbnailThread.queueThumbnail(imageView, item.getPhotoUrl());
 
             return convertView;
         }

@@ -100,10 +100,10 @@ public class PixabayFetchr {
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject galleryObject = jsonArray.getJSONObject(i);
                 String id = galleryObject.getString("id");
-                String url = galleryObject.getString("previewURL");
+                String photoUrl = galleryObject.getString("previewURL");
                 GalleryItem item = new GalleryItem();
                 item.setId(id);
-                item.setUrl(url);
+                item.setPhotoUrl(photoUrl);
                 items.add(item);
             }
         } catch (JSONException e) {

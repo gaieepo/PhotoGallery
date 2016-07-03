@@ -5,7 +5,7 @@ package com.example.PhotoGallery;
  */
 public class GalleryItem {
     private String mId;
-    private String mUrl;
+    private String mPhotoUrl;
 
     public String toString() {
         return mId;
@@ -19,11 +19,11 @@ public class GalleryItem {
         mId = id;
     }
 
-    public String getUrl() {
-        return mUrl;
+    public String getPhotoUrl() {
+        return mPhotoUrl;
     }
 
-    public void setUrl(String url) {
-        mUrl = url;
+    public void setPhotoUrl(String photoUrl) {
+        mPhotoUrl = photoUrl;
     }
 }
