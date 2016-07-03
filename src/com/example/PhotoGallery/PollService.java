@@ -68,6 +68,8 @@ public class PollService extends IntentService {
             NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
             notificationManager.notify(0, notification);
+        } else {
+            Log.i(TAG, "HERE");
         }
 
         prefs.edit()
