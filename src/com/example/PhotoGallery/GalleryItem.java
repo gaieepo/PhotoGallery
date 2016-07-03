@@ -6,6 +6,7 @@ package com.example.PhotoGallery;
 public class GalleryItem {
     private String mId;
     private String mPhotoUrl;
+    private String mPageUrl;
 
     public String toString() {
         return mId;
@@ -25,5 +26,13 @@ public class GalleryItem {
 
     public void setPhotoUrl(String photoUrl) {
         mPhotoUrl = photoUrl;
+    }
+
+    public String getPageUrl() {
+        return mPageUrl;
+    }
+
+    public void setPageUrl(String pageUrl) {
+        mPageUrl = pageUrl;
     }
 }

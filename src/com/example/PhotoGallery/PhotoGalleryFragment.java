@@ -8,6 +8,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -16,10 +17,7 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.*;
-import android.widget.ArrayAdapter;
-import android.widget.GridView;
-import android.widget.ImageView;
-import android.widget.SearchView;
+import android.widget.*;
 
 import java.util.ArrayList;
 
@@ -67,6 +65,20 @@ public class PhotoGalleryFragment extends VisibleFragment {
         mGridView = (GridView) v.findViewById(R.id.gridView);
 
         setupAdapter();
+
+        mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                GalleryItem item = mItems.get(position);
+
+                Uri photoPageUri = Uri.parse(item.getPageUrl());
+//                Intent i = new Intent(Intent.ACTION_VIEW, photoPageUri);
+                Intent i = new Intent(getActivity(), PhotoPageActivity.class);
+                i.setData(photoPageUri);
+
+                startActivity(i);
+            }
+        });
 
         return v;
     }
