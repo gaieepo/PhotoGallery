@@ -67,7 +67,7 @@ public class ThumbnailDownloader<Token> extends HandlerThread {
             final String url = requestMap.get(token);
             if (url == null) return;
 
-            byte[] bitmapBytes = new FlickrFetchr().getUrlBytes(url);
+            byte[] bitmapBytes = new PixabayFetchr().getUrlBytes(url);
             final Bitmap bitmap = BitmapFactory.decodeByteArray(bitmapBytes, 0, bitmapBytes.length);
             Log.i(TAG, "Bitmap created");
 

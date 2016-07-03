@@ -16,10 +16,11 @@ import java.util.ArrayList;
 /**
  * Created by gaieepo on 17/6/2016.
  */
-public class FlickrFetchr {
-    public static final String TAG = "FlickrFetchr";
+public class PixabayFetchr {
+    public static final String TAG = "PixabayFetchr";
 
     public static final String PREF_SEARCH_QUERY = "searchQuery";
+    public static final String PREF_LAST_RESULT_ID = "lastResultId";
 
     private static final String ENDPOINT = "https://pixabay.com/api/";
     private static final String API_KEY = "2773707-6b9eab3a9f01c7d3e40fa9a59";

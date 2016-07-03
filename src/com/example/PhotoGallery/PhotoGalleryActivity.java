@@ -24,7 +24,7 @@ public class PhotoGalleryActivity extends SingleFragmentActivity {
 
             PreferenceManager.getDefaultSharedPreferences(this)
                     .edit()
-                    .putString(FlickrFetchr.PREF_SEARCH_QUERY, query)
+                    .putString(PixabayFetchr.PREF_SEARCH_QUERY, query)
                     .commit();
         }
 
